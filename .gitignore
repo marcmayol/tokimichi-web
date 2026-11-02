@@ -1,7 +1,7 @@
 node_modules/
 dist/
 .astro/
-capturas/
+/capturas/
 .DS_Store
 PLAN.md
 .hallmark/
