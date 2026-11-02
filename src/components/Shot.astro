@@ -1,0 +1,24 @@
+---
+/* Captura real de la app en los dos temas. Mochi por defecto: el tema Luna solo se activa si
+   la persona lo elige, y entonces el botón cambia el media de <source>. */
+interface Props {
+	name: string;
+	alt: string;
+	eager?: boolean;
+}
+const { name, alt, eager = false } = Astro.props;
+const HEIGHTS: Record<string, number> = { inicio: 944, formulario: 1228, experiencia: 1228, pregunta: 794, dias: 1228 };
+---
+
+<picture class="shot">
+	<source srcset={`/capturas/${name}_l.webp`} media="not all" data-luna />
+	<img
+		src={`/capturas/${name}_m.webp`}
+		alt={alt}
+		width="600"
+		height={HEIGHTS[name]}
+		decoding="async"
+		loading={eager ? 'eager' : 'lazy'}
+		fetchpriority={eager ? 'high' : undefined}
+	/>
+</picture>

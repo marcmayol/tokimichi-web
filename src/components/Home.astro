@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import Crane from './Crane.astro';
+import MochiFace from './MochiFace.astro';
+import Shot from './Shot.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { ROUTES, SITE, UI, altLang, type Lang } from '../i18n';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const t = UI[lang];
+const url = SITE + ROUTES.home[lang];
+
+const schema = [
+	{
+		'@type': 'MobileApplication',
+		'@id': `${SITE}/#app`,
+		name: 'Tokimichi',
+		url: `${SITE}/`,
+		applicationCategory: 'LifestyleApplication',
+		operatingSystem: 'Android',
+		inLanguage: ['en', 'es'],
+		author: { '@id': `${SITE}/#author` },
+	},
+	{
+		'@type': 'WebPage',
+		'@id': `${url}#webpage`,
+		url,
+		name: t.meta.title,
+		description: t.meta.description,
+		inLanguage: lang,
+		isPartOf: { '@id': `${SITE}/#website` },
+		about: { '@id': `${SITE}/#app` },
+		primaryImageOfPage: `${SITE}/og-${lang}.png`,
+	},
+	{
+		'@type': 'FAQPage',
+		'@id': `${url}#faq`,
+		inLanguage: lang,
+		mainEntity: t.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+	},
+];
+---
+
+<Base lang={lang} page="home" title={t.meta.title} description={t.meta.description} schema={schema}>
+	<section class="wrap hero">
+		<div>
+			<h1>{t.h1Parts[0]}<span class="mark">{t.h1Parts[1]}</span>{t.h1Parts[2]}</h1>
+			<p class="lede">{t.lede}</p>
+			<WaitlistForm lang={lang} id="alta" label={t.form.label} />
+		</div>
+		<div class="stage">
+			<div class="cushion" aria-hidden="true"></div>
+			<div class="photo hphoto">
+				<Shot name="inicio" alt={t.heroAlt} eager />
+				<MochiFace class="fhero" />
+			</div>
+		</div>
+	</section>
+
+	<section class="band"><div class="wrap">
+		<h2 class="heading-c">{t.roadTitle}</h2>
+		{t.roadNote && <p class="rnote heading-c">{t.roadNote}</p>}
+		<ol class="road">
+			{
+				t.road.map((stop) => (
+					<li class="stop">
+						<div class="seal">{stop.tag}</div>
+						<div class="stxt">
+							<h3>{stop.title}</h3>
+							<p class="sbody">{stop.body}</p>
+						</div>
+						<div class="sshot"><div class="photo"><Shot name={stop.shot} alt={stop.alt} /></div></div>
+					</li>
+				))
+			}
+		</ol>
+		<div class="fin"><Crane /></div>
+	</div></section>
+
+	<section class="wrap">
+		<div class="promise">
+			<h2>{t.promiseTitle}</h2>
+			<ul class="plist">
+				{
+					t.promise.map((p) => (
+						<li>
+							<h3 class="pname">{p.name}</h3>
+							<p class="ptext">{p.text}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="wrap next">
+		<h2>{t.nextTitle}</h2>
+		<p class="nnote">{t.nextNote}</p>
+		<ul class="chips">{t.next.map((n) => <li class="chip">{n}</li>)}</ul>
+	</section>
+
+	<section class="wrap faq">
+		<h2>{t.faqTitle}</h2>
+		<div class="qs">
+			{
+				t.faq.map((f) => (
+					<div class="q">
+						<h3 class="qt">{f.q}</h3>
+						<p class="qa">{f.a}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<footer class="foot" slot="foot">
+		<MochiFace class="ffoot" />
+		<div class="wrap ftop">
+			<h2>{t.footTitle}</h2>
+			<WaitlistForm lang={lang} id="pie" label={t.form.footLabel} />
+		</div>
+		<div class="wrap fmeta">
+			<span>tokimichi · 2026</span>
+			<div class="flinks">
+				<a href={ROUTES.privacy[lang]}>{t.privacyLink}</a>
+				<a href={ROUTES.home[altLang(lang)]} lang={altLang(lang)} hreflang={altLang(lang)}>{t.langName}</a>
+				<a href="https://marcmayol.com/" rel="author">{t.madeBy}</a>
+			</div>
+		</div>
+	</footer>
+</Base>

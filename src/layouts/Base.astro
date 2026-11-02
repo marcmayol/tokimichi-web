@@ -1,0 +1,117 @@
+---
+import '../styles/global.css';
+import Crane from '../components/Crane.astro';
+import { ROUTES, SITE, UI, altLang, type Lang, type PageKey } from '../i18n';
+
+interface Props {
+	lang: Lang;
+	page: PageKey | null;
+	title: string;
+	description: string;
+	schema?: object[];
+	noindex?: boolean;
+}
+const { lang, page, title, description, schema = [], noindex = false } = Astro.props;
+const t = UI[lang];
+const other = altLang(lang);
+const path = page ? ROUTES[page][lang] : '/404.html';
+const canonical = SITE + path;
+const otherHref = page ? ROUTES[page][other] : ROUTES.home[other];
+const og = `${SITE}/og-${lang}.png`;
+const mdHref = page ? (path === '/' ? '/index.md' : `${path.replace(/\/$/, '')}.md`) : null;
+
+const org = {
+	'@type': 'Person',
+	'@id': `${SITE}/#author`,
+	name: 'Marc Mayol',
+	url: 'https://marcmayol.com/',
+};
+const site = {
+	'@type': 'WebSite',
+	'@id': `${SITE}/#website`,
+	url: `${SITE}/`,
+	name: 'Tokimichi',
+	inLanguage: ['en', 'es'],
+	publisher: { '@id': org['@id'] },
+};
+const graph = JSON.stringify({ '@context': 'https://schema.org', '@graph': [org, site, ...schema] }).replace(/</g, '\\u003c');
+const labels = { toLuna: t.toLuna, toMochi: t.toMochi };
+---
+
+<!doctype html>
+<html lang={lang} data-theme="mochi">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex" />}
+		{!noindex && <link rel="canonical" href={canonical} />}
+		{page && <link rel="alternate" hreflang="en" href={SITE + ROUTES[page].en} />}
+		{page && <link rel="alternate" hreflang="es" href={SITE + ROUTES[page].es} />}
+		{page && <link rel="alternate" hreflang="x-default" href={SITE + ROUTES[page].en} />}
+		{mdHref && <link rel="alternate" type="text/markdown" href={mdHref} />}
+		<meta name="theme-color" content="#FDF6F6" />
+		<link rel="preload" href="/fonts/zen-maru-gothic-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/zen-maru-gothic-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		{!noindex && (
+			<Fragment>
+				<meta property="og:type" content="website" />
+				<meta property="og:site_name" content="Tokimichi" />
+				<meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+				<meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
+				<meta property="og:title" content={title} />
+				<meta property="og:description" content={description} />
+				<meta property="og:url" content={canonical} />
+				<meta property="og:image" content={og} />
+				<meta property="og:image:width" content="1200" />
+				<meta property="og:image:height" content="630" />
+				<meta property="og:image:alt" content={t.h1} />
+				<meta name="twitter:card" content="summary_large_image" />
+			</Fragment>
+		)}
+		<script is:inline>
+			// Antes de pintar, para que no parpadee el tema.
+			(() => {
+				let saved = null;
+				try { saved = localStorage.getItem('tokimichi-tema'); } catch {}
+				document.documentElement.dataset.theme = saved === 'luna' ? 'luna' : 'mochi';
+			})();
+		</script>
+		<script type="application/ld+json" set:html={graph} />
+	</head>
+	<body>
+		<a class="skip" href="#contenido">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+		<header class="wrap nav">
+			<a class="brand" href={ROUTES.home[lang]} aria-label={t.home}><Crane />tokimichi</a>
+			<div class="navr">
+				<a class="tiny" href={otherHref} lang={other} hreflang={other}>{t.langName}</a>
+				<button class="tiny" type="button" data-theme-toggle></button>
+			</div>
+		</header>
+		<main id="contenido"><slot /></main>
+		<slot name="foot" />
+		<script is:inline define:vars={{ labels }}>
+			(() => {
+				const root = document.documentElement;
+				const button = document.querySelector('[data-theme-toggle]');
+				const sources = document.querySelectorAll('source[data-luna]');
+				const apply = (theme) => {
+					root.dataset.theme = theme;
+					button.textContent = theme === 'luna' ? labels.toMochi : labels.toLuna;
+					sources.forEach((s) => { s.media = theme === 'luna' ? 'all' : 'not all'; });
+				};
+				apply(root.dataset.theme);
+				button.addEventListener('click', () => {
+					const next = root.dataset.theme === 'luna' ? 'mochi' : 'luna';
+					try { localStorage.setItem('tokimichi-tema', next); } catch {}
+					apply(next);
+				});
+			})();
+		</script>
+	</body>
+</html>

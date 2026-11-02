@@ -1,0 +1,85 @@
+---
+import { ROUTES, UI, WAITLIST_ENDPOINT, type Lang } from '../i18n';
+
+interface Props {
+	lang: Lang;
+	id: string;
+	label: string;
+	hideLabel?: boolean;
+}
+const { lang, id, label } = Astro.props;
+const f = UI[lang].form;
+const texts = { sending: f.sending, send: f.send, ok: f.ok, errEmail: f.errEmail, errConsent: f.errConsent, errNet: f.errNet };
+---
+
+<form class="form" novalidate data-waitlist toolname="join_tokimichi_waitlist" tooldescription={f.toolDesc}>
+	<label class="flabel" for={`${id}-email`}>{label}</label>
+	<div class="fline">
+		<input class="input" id={`${id}-email`} type="email" name="email" placeholder={f.placeholder} autocomplete="email" maxlength="120" required toolparamdescription={f.toolEmail} />
+		<button class="btn" type="submit">{f.send}</button>
+	</div>
+	<label class="check">
+		<input type="checkbox" name="consent" value="yes" required toolparamdescription={f.toolConsent} />
+		<span>{f.consentA} <a href={ROUTES.privacy[lang]}>{f.consentLink}</a>{f.consentB}</span>
+	</label>
+	<div class="trap" aria-hidden="true">
+		<label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" toolparamdescription={f.toolTrap} /></label>
+	</div>
+	<p class="status" role="status" aria-live="polite"></p>
+</form>
+
+<script is:inline define:vars={{ endpoint: WAITLIST_ENDPOINT, texts, formId: id }}>
+	(() => {
+		const form = document.getElementById(`${formId}-email`).closest('form');
+		const email = form.elements.email;
+		const consent = form.elements.consent;
+		const status = form.querySelector('.status');
+		const button = form.querySelector('.btn');
+		const say = (message, kind) => {
+			status.textContent = message;
+			status.dataset.kind = kind;
+		};
+		email.addEventListener('input', () => email.removeAttribute('aria-invalid'));
+		consent.addEventListener('change', () => consent.removeAttribute('aria-invalid'));
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const value = email.value.trim();
+			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+				email.setAttribute('aria-invalid', 'true');
+				say(texts.errEmail, 'err');
+				email.focus();
+				return;
+			}
+			if (!consent.checked) {
+				consent.setAttribute('aria-invalid', 'true');
+				say(texts.errConsent, 'err');
+				consent.focus();
+				return;
+			}
+			// Un bot ha rellenado la trampa: se finge éxito y no se envía nada.
+			if (form.elements.website.value !== '') {
+				say(texts.ok, 'ok');
+				form.reset();
+				return;
+			}
+			button.disabled = true;
+			button.textContent = texts.sending;
+			say('', '');
+			try {
+				// urlencoded: petición simple, sin preflight contra el webhook.
+				const body = new URLSearchParams({ email: value, consent: 'yes', lang: document.documentElement.lang, page: location.pathname });
+				const response = await fetch(endpoint, { method: 'POST', body });
+				// n8n responde 200 vacío si falla por dentro: solo cuenta como guardado el ok explícito.
+				const result = await response.json().catch(() => null);
+				if (!response.ok || result?.ok !== true) throw new Error(`HTTP ${response.status}`);
+				say(texts.ok, 'ok');
+				form.reset();
+			} catch {
+				say(texts.errNet, 'err');
+			} finally {
+				button.disabled = false;
+				button.textContent = texts.send;
+			}
+		});
+	})();
+</script>

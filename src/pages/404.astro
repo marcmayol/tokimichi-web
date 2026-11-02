@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Crane from '../components/Crane.astro';
+import { ROUTES, UI } from '../i18n';
+
+// GitHub Pages solo admite un 404: lleva los dos idiomas.
+const { es, en } = { es: UI.es.notFound, en: UI.en.notFound };
+---
+
+<Base lang="en" page={null} title={`${en.title} · Tokimichi`} description={en.body} noindex>
+	<section class="wrap lost">
+		<Crane />
+		<h1>{en.title}</h1>
+		<p>{en.body} <a href={ROUTES.home.en}>{en.back}</a></p>
+		<p lang="es">{es.body} <a href={ROUTES.home.es}>{es.back}</a></p>
+	</section>
+</Base>

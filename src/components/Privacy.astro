@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { PRIVACY, ROUTES, SITE, UI, altLang, type Lang } from '../i18n';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const p = PRIVACY[lang];
+const t = UI[lang];
+const url = SITE + ROUTES.privacy[lang];
+const schema = [
+	{
+		'@type': 'WebPage',
+		'@id': `${url}#webpage`,
+		url,
+		name: p.meta.title,
+		description: p.meta.description,
+		inLanguage: lang,
+		isPartOf: { '@id': `${SITE}/#website` },
+	},
+];
+---
+
+<Base lang={lang} page="privacy" title={p.meta.title} description={p.meta.description} schema={schema}>
+	<article class="wrap doc">
+		<h1>{p.title}</h1>
+		<p class="up">{p.updated}</p>
+		{
+			p.sections.map((s) => (
+				<section>
+					<h2>{s.h}</h2>
+					{s.p.map((text) => <p>{text}</p>)}
+				</section>
+			))
+		}
+	</article>
+	<footer class="foot" slot="foot">
+		<div class="wrap fmeta solo">
+			<span>tokimichi · 2026</span>
+			<div class="flinks">
+				<a href={ROUTES.home[lang]}>tokimichi</a>
+				<a href={ROUTES.privacy[altLang(lang)]} lang={altLang(lang)} hreflang={altLang(lang)}>{t.langName}</a>
+				<a href="https://marcmayol.com/" rel="author">{t.madeBy}</a>
+			</div>
+		</div>
+	</footer>
+</Base>

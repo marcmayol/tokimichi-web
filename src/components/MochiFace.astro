@@ -1,0 +1,6 @@
+---
+/* La carita de mochi: decorativa, solo con CSS. Quitarla es borrar este componente y sus dos usos. */
+const { class: extra = '' } = Astro.props;
+---
+
+<span class:list={['face', extra]} aria-hidden="true"></span>
