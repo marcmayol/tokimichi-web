@@ -82,7 +82,7 @@ if (l.kind === 'guide') {
 		<div class="stage">
 			<div class="cushion" aria-hidden="true"></div>
 			<div class="photo hphoto">
-				<Shot name={l.shot.name} alt={l.shot.alt} eager />
+				<Shot lang={lang} name={l.shot.name} alt={l.shot.alt} eager />
 				<MochiFace class="fhero" />
 			</div>
 		</div>
@@ -97,7 +97,7 @@ if (l.kind === 'guide') {
 						{s.p?.map((text) => <p>{text}</p>)}
 						{s.list && <ul class="dots">{s.list.map((item) => <li>{item}</li>)}</ul>}
 					</div>
-					{s.shot && <div class="lshot"><div class="photo"><Shot name={s.shot.name} alt={s.shot.alt} /></div></div>}
+					{s.shot && <div class="lshot"><div class="photo"><Shot lang={lang} name={s.shot.name} alt={s.shot.alt} /></div></div>}
 				</section>
 			))
 		}

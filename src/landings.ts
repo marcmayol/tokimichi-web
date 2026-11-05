@@ -24,7 +24,6 @@ export interface Landing {
 
 export const LANDING_KEYS: LandingKey[] = ['travel', 'travelGuide', 'voice', 'noStreaks', 'celebrations'];
 
-const ALPHA = ' Screenshot of the Spanish alpha.';
 
 export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 	es: {
@@ -330,7 +329,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			},
 			h1Parts: ['The travel journal app that keeps ', 'every day', '.'],
 			lede: 'Tokimichi sorts your trip by day, with what you write, your photos, your videos and your voice. When you’re home, you open that Tuesday in Kyoto and it’s just as you left it.',
-			shot: { name: 'dias', alt: `Screen of a trip with its days expanded: today, yesterday and day 1.${ALPHA}` },
+			shot: { name: 'dias', alt: `Screen of a trip with its days expanded: today, yesterday and day 1.` },
 			sections: [
 				{
 					h: 'Every day of the trip, in its place',
@@ -338,7 +337,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 						'You create the trip, type the destination, and each moment lands on its day. At midnight the next one begins, without you touching anything.',
 						'Every moment carries the local time of the country you’re in. 19:04 in Tokyo is still 19:04 when you reread it at home.',
 					],
-					shot: { name: 'experiencia', alt: `Screen of a trip with a moment saved at 19:04.${ALPHA}` },
+					shot: { name: 'experiencia', alt: `Screen of a trip with a moment saved at 19:04.` },
 				},
 				{
 					h: 'Saved in seconds, or once you’re back',
@@ -355,7 +354,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 					p: [
 						'You choose how many times a day it asks, from none to three. Not in the mood? Tap “Not today” and it leaves no trace. Once you call the day done, it stops asking until the next one.',
 					],
-					shot: { name: 'pregunta', alt: `Screen with the question “How do you feel today?” and an answer being written.${ALPHA}` },
+					shot: { name: 'pregunta', alt: `Screen with the question “How are you feeling today?” and an answer being written.` },
 				},
 				{
 					h: 'Works on the plane too',
@@ -368,7 +367,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 					'It doesn’t draw your route or use GPS. If you’re after a map of the journey, other apps are built for that.',
 					'It won’t let your family follow along: there are no profiles or followers.',
 					'You can save a copy to a file, but it can’t be restored on a new phone yet. That’s on the way, along with automatic backup.',
-					'You can’t download it yet: Android comes first, then iPhone. Today’s screens are from the Spanish alpha, and it launches in English and Spanish.',
+					'You can’t download it yet: Android comes first, then iPhone. It launches in English and Spanish.',
 				],
 			},
 			faq: [
@@ -389,7 +388,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			},
 			h1Parts: ['How to keep travel memories ', 'before they fade', '.'],
 			lede: 'Photos keep what a place looked like, but rarely how the day felt. Here’s what’s worth catching as you go, and how to have it within reach years from now.',
-			shot: { name: 'experiencia', alt: `Screen of a trip in Tokimichi with a moment saved at 19:04.${ALPHA}` },
+			shot: { name: 'experiencia', alt: `Screen of a trip in Tokimichi with a moment saved at 19:04.` },
 			sections: [
 				{
 					h: 'What goes first',
@@ -455,7 +454,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			},
 			h1Parts: ['A voice diary to remember ', 'how it sounded', '.'],
 			lede: 'Some things are hard to write and easy to say. In Tokimichi you record your voice in the moment, and it stays next to the photos and notes from that experience.',
-			shot: { name: 'experiencia', alt: `Screen of an experience with a moment saved at 19:04.${ALPHA}` },
+			shot: { name: 'experiencia', alt: `Screen of an experience with a moment saved at 19:04.` },
 			sections: [
 				{
 					h: 'Why keep your voice',
@@ -483,7 +482,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 					p: [
 						'A standalone voice diary tends to end up as a list of files. Here each recording belongs to something you lived, like your trip to Egypt or your mum’s birthday, and you hear it in the order it happened, among your photos, videos and what you wrote.',
 					],
-					shot: { name: 'dias', alt: `Screen of an experience with its days expanded: today, yesterday and day 1.${ALPHA}` },
+					shot: { name: 'dias', alt: `Screen of an experience with its days expanded: today, yesterday and day 1.` },
 				},
 			],
 			limits: {
@@ -492,7 +491,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 					'It doesn’t transcribe your recordings or summarise them with AI.',
 					'It doesn’t track your mood or draw charts: it isn’t a therapy or health tool.',
 					'It needs microphone permission, only to record your voice.',
-					'You can’t download it yet: Android comes first, then iPhone. Today’s screens are from the Spanish alpha, and it launches in English and Spanish.',
+					'You can’t download it yet: Android comes first, then iPhone. It launches in English and Spanish.',
 				],
 			},
 			faq: [
@@ -512,14 +511,14 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			},
 			h1Parts: ['A journal app with ', 'no streaks', ' and no guilt.'],
 			lede: 'Tokimichi doesn’t count how many days you’ve been writing. It doesn’t ask you to write every day either: you open it when you’re living something you want to remember, like a trip to Lisbon or New Year’s Eve with friends, and the rest of the time it leaves you alone.',
-			shot: { name: 'pregunta', alt: `Screen with the question “How do you feel today?” and an answer being written.${ALPHA}` },
+			shot: { name: 'pregunta', alt: `Screen with the question “How are you feeling today?” and an answer being written.` },
 			sections: [
 				{
 					h: 'Built around experiences, not dates',
 					p: [
-						'Traditional journals hand you a blank page every morning. Here you pick from seven types, trip to meetup, and start from something specific. With nothing to tell, nothing is overdue.',
+						'Traditional journals hand you a blank page every morning. Here you pick from seven types, trip to get-together, and start from something specific. With nothing to tell, nothing is overdue.',
 					],
-					shot: { name: 'formulario', alt: `New experience form with the types to choose from, trip to meetup.${ALPHA}` },
+					shot: { name: 'formulario', alt: `New experience form with the types to choose from, trip to get-together.` },
 				},
 				{
 					h: 'You choose the reminders',
@@ -543,7 +542,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 					'If seeing a streak helps you build a daily writing habit, there are apps made for that.',
 					'It doesn’t log your mood or show statistics.',
 					'It has no password or fingerprint lock inside the app.',
-					'You can’t download it yet: Android comes first, then iPhone. Today’s screens are from the Spanish alpha, and it launches in English and Spanish.',
+					'You can’t download it yet: Android comes first, then iPhone. It launches in English and Spanish.',
 				],
 			},
 			faq: [
@@ -563,7 +562,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			},
 			h1Parts: ['Your birthdays and parties, ', 'just as they were', '.'],
 			lede: 'The next day there are forty photos on your camera roll, mixed in with screenshots and receipts. Tokimichi gathers each celebration in one place, with what you said and felt that night.',
-			shot: { name: 'inicio', alt: `Tokimichi home screen with a birthday, showing a photo of a cake, and a trip to Egypt.${ALPHA}` },
+			shot: { name: 'inicio', alt: `Tokimichi home screen with a birthday, showing a photo of a cake, and a trip to Egypt.` },
 			sections: [
 				{
 					h: 'One celebration, one block',
@@ -580,7 +579,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 						'An afternoon with your oldest friends.',
 						'Your first concert, or anything else without a type.',
 					],
-					shot: { name: 'formulario', alt: `New experience form with the types to choose from, trip to meetup.${ALPHA}` },
+					shot: { name: 'formulario', alt: `New experience form with the types to choose from, trip to get-together.` },
 				},
 				{
 					h: 'What the photo leaves out',
@@ -600,7 +599,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				list: [
 					'It isn’t a shared album: guests can’t upload their photos to your experience.',
 					'The film and album of your memories are on the way and don’t exist yet.',
-					'You can’t download it yet: Android comes first, then iPhone. Today’s screens are from the Spanish alpha, and it launches in English and Spanish.',
+					'You can’t download it yet: Android comes first, then iPhone. It launches in English and Spanish.',
 				],
 			},
 			faq: [

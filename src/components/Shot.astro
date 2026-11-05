@@ -3,17 +3,20 @@
    la persona lo elige, y entonces el botón cambia el media de <source>. */
 interface Props {
 	name: string;
+	/** Las páginas en inglés enseñan la app en inglés. */
+	lang: 'en' | 'es';
 	alt: string;
 	eager?: boolean;
 }
-const { name, alt, eager = false } = Astro.props;
+const { name, lang, alt, eager = false } = Astro.props;
+const dir = lang === 'en' ? '/capturas/en' : '/capturas';
 const HEIGHTS: Record<string, number> = { inicio: 944, formulario: 1228, experiencia: 1228, pregunta: 794, dias: 1228 };
 ---
 
 <picture class="shot">
-	<source srcset={`/capturas/${name}_l.webp`} media="not all" data-luna />
+	<source srcset={`${dir}/${name}_l.webp`} media="not all" data-luna />
 	<img
-		src={`/capturas/${name}_m.webp`}
+		src={`${dir}/${name}_m.webp`}
 		alt={alt}
 		width="600"
 		height={HEIGHTS[name]}

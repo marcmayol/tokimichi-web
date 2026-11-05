@@ -57,7 +57,7 @@ const schema = [
 		<div class="stage">
 			<div class="cushion" aria-hidden="true"></div>
 			<div class="photo hphoto">
-				<Shot name="inicio" alt={t.heroAlt} eager />
+				<Shot lang={lang} name="inicio" alt={t.heroAlt} eager />
 				<MochiFace class="fhero" />
 			</div>
 		</div>
@@ -75,7 +75,7 @@ const schema = [
 							<h3>{stop.title}</h3>
 							<p class="sbody">{stop.body}</p>
 						</div>
-						<div class="sshot"><div class="photo"><Shot name={stop.shot} alt={stop.alt} /></div></div>
+						<div class="sshot"><div class="photo"><Shot lang={lang} name={stop.shot} alt={stop.alt} /></div></div>
 					</li>
 				))
 			}

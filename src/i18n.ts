@@ -97,7 +97,7 @@ export const UI = {
 		h1: 'Relive your happiest memories.',
 		h1Parts: ['Relive your ', 'happiest memories', '.'],
 		lede: 'Tokimichi is the app where your experiences stay alive. You save what you feel as you live it, and whenever you like you go back to that trip, that birthday or that night with friends, just as it was.',
-		heroAlt: 'Tokimichi home screen with two experiences in progress: a birthday, with a photo of a cake, and a trip to Egypt, with the pyramids. Screenshot of the Spanish alpha.',
+		heroAlt: 'Tokimichi home screen with two experiences in progress: a birthday, with a photo of a cake, and a trip to Egypt, with the pyramids.',
 		form: {
 			label: 'We’ll tell you when it’s out on Android',
 			footLabel: 'Your email',
@@ -117,12 +117,12 @@ export const UI = {
 			toolTrap: 'Always leave empty: this is a bot trap.',
 		},
 		roadTitle: 'How a memory stays alive',
-		roadNote: 'These screens are from the Spanish alpha. The app launches in English and Spanish.',
+		roadNote: '',
 		road: [
-			{ tag: '09:12', shot: 'formulario', title: 'Start something lovely', body: 'A trip, a getaway, a day trip, a birthday, a party, a meetup or whatever comes to mind.', alt: 'New experience form with the types to choose from, trip to meetup, and Egypt typed as the destination. Screenshot of the Spanish alpha.' },
-			{ tag: '15:32', shot: 'experiencia', title: 'Save what you feel', body: 'A sentence, a photo, a video or your voice, in seconds and with the local time of the country you’re in.', alt: 'Screen of an experience with a moment saved at 19:04. Screenshot of the Spanish alpha.' },
-			{ tag: '19:04', shot: 'pregunta', title: 'Tokimichi asks you', body: 'Up to three times a day, and it never nags. Not in the mood? Tap “Not today” and it leaves no trace.', alt: 'Screen with the question “How do you feel today?” and an answer being written. Screenshot of the Spanish alpha.' },
-			{ tag: 'A year', shot: 'dias', title: 'Then one day, you go back', body: 'Open that day and it’s all there: what you wrote, your photos, videos and voice, in the order it happened.', alt: 'Screen of an experience with its days expanded: today, yesterday and day 1. Screenshot of the Spanish alpha.' },
+			{ tag: '09:12', shot: 'formulario', title: 'Start something lovely', body: 'A trip, a getaway, a day trip, a birthday, a party, a get-together or whatever comes to mind.', alt: 'New experience form with the types to choose from, trip to get-together, and Egypt typed as the destination.' },
+			{ tag: '15:32', shot: 'experiencia', title: 'Save what you feel', body: 'A sentence, a photo, a video or your voice, in seconds and with the local time of the country you’re in.', alt: 'Screen of an experience with a moment saved at 19:04.' },
+			{ tag: '19:04', shot: 'pregunta', title: 'Tokimichi asks you', body: 'Up to three times a day, and it never nags. Not in the mood? Tap “Not today” and it leaves no trace.', alt: 'Screen with the question “How are you feeling today?” and an answer being written.' },
+			{ tag: 'A year', shot: 'dias', title: 'Then one day, you go back', body: 'Open that day and it’s all there: what you wrote, your photos, videos and voice, in the order it happened.', alt: 'Screen of an experience with its days expanded: today, yesterday and day 1.' },
 		],
 		promiseTitle: 'Your memories, only yours',
 		promise: [
