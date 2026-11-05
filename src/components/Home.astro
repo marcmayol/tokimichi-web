@@ -1,10 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Crane from './Crane.astro';
+import Explore from './Explore.astro';
 import MochiFace from './MochiFace.astro';
 import Shot from './Shot.astro';
+import SiteFoot from './SiteFoot.astro';
 import WaitlistForm from './WaitlistForm.astro';
-import { ROUTES, SITE, UI, altLang, type Lang } from '../i18n';
+import { LANDING_KEYS } from '../landings';
+import { ROUTES, SITE, UI, type Lang } from '../i18n';
 
 interface Props {
 	lang: Lang;
@@ -102,6 +105,8 @@ const schema = [
 		<ul class="chips">{t.next.map((n) => <li class="chip">{n}</li>)}</ul>
 	</section>
 
+	<Explore lang={lang} title={t.exploreTitle} keys={LANDING_KEYS} />
+
 	<section class="wrap faq">
 		<h2>{t.faqTitle}</h2>
 		<div class="qs">
@@ -116,19 +121,5 @@ const schema = [
 		</div>
 	</section>
 
-	<footer class="foot" slot="foot">
-		<MochiFace class="ffoot" />
-		<div class="wrap ftop">
-			<h2>{t.footTitle}</h2>
-			<WaitlistForm lang={lang} id="pie" label={t.form.footLabel} />
-		</div>
-		<div class="wrap fmeta">
-			<span>tokimichi · 2026</span>
-			<div class="flinks">
-				<a href={ROUTES.privacy[lang]}>{t.privacyLink}</a>
-				<a href={ROUTES.home[altLang(lang)]} lang={altLang(lang)} hreflang={altLang(lang)}>{t.langName}</a>
-				<a href="https://marcmayol.com/" rel="author">{t.madeBy}</a>
-			</div>
-		</div>
-	</footer>
+	<SiteFoot slot="foot" lang={lang} page="home" />
 </Base>

@@ -1,0 +1,29 @@
+---
+import MochiFace from './MochiFace.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { ROUTES, UI, altLang, type Lang, type PageKey } from '../i18n';
+
+interface Props {
+	lang: Lang;
+	page: PageKey;
+}
+const { lang, page } = Astro.props;
+const t = UI[lang];
+const other = altLang(lang);
+---
+
+<footer class="foot">
+	<MochiFace class="ffoot" />
+	<div class="wrap ftop">
+		<h2>{t.footTitle}</h2>
+		<WaitlistForm lang={lang} id="pie" label={t.form.footLabel} />
+	</div>
+	<div class="wrap fmeta">
+		<span>tokimichi · 2026</span>
+		<div class="flinks">
+			<a href={ROUTES.privacy[lang]}>{t.privacyLink}</a>
+			<a href={ROUTES[page][other]} lang={other} hreflang={other}>{t.langName}</a>
+			<a href="https://marcmayol.com/" rel="author">{t.madeBy}</a>
+		</div>
+	</div>
+</footer>

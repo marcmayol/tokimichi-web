@@ -1,16 +1,17 @@
+import { PAGES } from './routes.mjs';
+import { LANDINGS, LANDING_KEYS } from './landings';
+
 export const SITE = 'https://tokimichi.app';
 export const CONTACT_EMAIL = 'hola@tokimichi.app';
 // El webhook de la lista de espera en n8n.
 export const WAITLIST_ENDPOINT = 'https://vps24874.cubepath.net/webhook/tokimichi-lista-espera';
 
 export type Lang = 'en' | 'es';
-export type PageKey = 'home' | 'privacy';
+export type PageKey = 'home' | 'privacy' | 'travel' | 'travelGuide' | 'voice' | 'noStreaks' | 'celebrations';
 
-/** Las rutas de cada página por idioma: de aquí salen el selector, los hreflang y los Markdown. */
-export const ROUTES: Record<PageKey, Record<Lang, string>> = {
-	home: { en: '/', es: '/es/' },
-	privacy: { en: '/privacy/', es: '/es/privacidad/' },
-};
+/** Las rutas de cada página por idioma, definidas en routes.mjs para compartirlas con el sitemap. */
+export const ROUTES = PAGES as Record<PageKey, Record<Lang, string>>;
+export const PAGE_UPDATED = Object.fromEntries(Object.entries(PAGES).map(([key, page]) => [key, page.updated])) as Record<PageKey, string>;
 
 export const altLang = (lang: Lang): Lang => (lang === 'en' ? 'es' : 'en');
 
@@ -21,7 +22,7 @@ export const UI = {
 		toLuna: 'Modo Luna',
 		toMochi: 'Modo Mochi',
 		meta: {
-			title: 'Tokimichi: la app para revivir tus recuerdos más felices',
+			title: 'Tokimichi: la app para guardar y revivir tus recuerdos más felices',
 			description:
 				'La app donde tus experiencias siguen vivas: guarda viajes, fiestas y cumpleaños con texto, fotos, vídeo o voz, y revívelos cuando quieras. Primero en Android.',
 		},
@@ -65,6 +66,9 @@ export const UI = {
 		nextTitle: 'Para revivirlo aún mejor',
 		nextNote: 'Todo esto está en camino.',
 		next: ['Una película con tus recuerdos', 'Un álbum con tus recuerdos', 'Copia automática en tu Drive o tu nube', 'iPhone'],
+		exploreTitle: 'Empieza por lo que quieras guardar',
+		relatedTitle: 'Sigue por aquí',
+		crumbLabel: 'Estás en',
 		faqTitle: 'Preguntas',
 		faq: [
 			{ q: '¿Es solo para viajes?', a: 'No. Sirve para cualquier cosa que quieras recordar como la viviste: un cumpleaños, una fiesta, una tarde con amigos.' },
@@ -85,7 +89,7 @@ export const UI = {
 		toLuna: 'Luna mode',
 		toMochi: 'Mochi mode',
 		meta: {
-			title: 'Tokimichi: the app to relive your happiest memories',
+			title: 'Tokimichi: the app to save and relive your happiest memories',
 			description:
 				'The app where your experiences stay alive: save trips, parties and birthdays with text, photos, video or voice, and relive them anytime. Android first.',
 		},
@@ -129,6 +133,9 @@ export const UI = {
 		nextTitle: 'To relive it even better',
 		nextNote: 'All of this is on the way.',
 		next: ['A film of your memories', 'An album of your memories', 'Automatic backup to your Drive or cloud', 'iPhone'],
+		exploreTitle: 'Start with what you want to keep',
+		relatedTitle: 'Keep reading',
+		crumbLabel: 'You are here',
 		faqTitle: 'Questions',
 		faq: [
 			{ q: 'Is it only for trips?', a: 'No. It works for anything you want to remember just as it happened: a birthday, a party, an afternoon with friends.' },
@@ -188,6 +195,7 @@ export function homeMarkdown(lang: Lang): string {
 		`## ${t.promiseTitle}`, '', ...t.promise.map((p) => `- **${p.name}.** ${p.text}`), '',
 		`## ${t.nextTitle}`, '', t.nextNote, '', ...t.next.map((n) => `- ${n}`), '',
 		`## ${t.faqTitle}`, '', ...t.faq.flatMap((f) => [`### ${f.q}`, '', f.a, '']),
+		`## ${t.exploreTitle}`, '', ...LANDING_KEYS.map((key) => `- [${LANDINGS[lang][key].anchor}](${SITE}${ROUTES[key][lang]}): ${LANDINGS[lang][key].blurb}`), '',
 		`[${t.privacyLink}](${SITE}${ROUTES.privacy[lang]})`, '',
 	].join('\n');
 }

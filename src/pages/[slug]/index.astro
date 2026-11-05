@@ -1,0 +1,12 @@
+---
+import Landing from '../../components/Landing.astro';
+import { LANDING_KEYS } from '../../landings';
+import { ROUTES } from '../../i18n';
+
+export function getStaticPaths() {
+	return LANDING_KEYS.map((id) => ({ params: { slug: ROUTES[id].en.replaceAll('/', '') }, props: { id } }));
+}
+const { id } = Astro.props;
+---
+
+<Landing lang="en" id={id} />

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import Explore from './Explore.astro';
+import MochiFace from './MochiFace.astro';
+import Shot from './Shot.astro';
+import SiteFoot from './SiteFoot.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { LANDINGS, type LandingKey } from '../landings';
+import { PAGE_UPDATED, ROUTES, SITE, UI, type Lang } from '../i18n';
+
+interface Props {
+	lang: Lang;
+	id: LandingKey;
+}
+const { lang, id } = Astro.props;
+const t = UI[lang];
+const l = LANDINGS[lang][id];
+const url = SITE + ROUTES[id][lang];
+const homeUrl = SITE + ROUTES.home[lang];
+
+const schema: object[] = [
+	{
+		'@type': 'WebPage',
+		'@id': `${url}#webpage`,
+		url,
+		name: l.meta.title,
+		description: l.meta.description,
+		inLanguage: lang,
+		dateModified: PAGE_UPDATED[id],
+		isPartOf: { '@id': `${SITE}/#website` },
+		about: { '@id': `${SITE}/#app` },
+		breadcrumb: { '@id': `${url}#breadcrumb` },
+	},
+	{
+		'@type': 'BreadcrumbList',
+		'@id': `${url}#breadcrumb`,
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Tokimichi', item: homeUrl },
+			{ '@type': 'ListItem', position: 2, name: l.anchor, item: url },
+		],
+	},
+	{
+		'@type': 'FAQPage',
+		'@id': `${url}#faq`,
+		inLanguage: lang,
+		mainEntity: l.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+	},
+];
+if (l.kind === 'guide') {
+	schema.push({
+		'@type': 'Article',
+		'@id': `${url}#article`,
+		headline: l.meta.title,
+		description: l.meta.description,
+		inLanguage: lang,
+		url,
+		author: { '@id': `${SITE}/#author` },
+		publisher: { '@id': `${SITE}/#author` },
+		datePublished: PAGE_UPDATED[id],
+		dateModified: PAGE_UPDATED[id],
+		image: `${SITE}/og-${lang}.png`,
+		mainEntityOfPage: { '@id': `${url}#webpage` },
+	});
+}
+---
+
+<Base lang={lang} page={id} title={l.meta.title} description={l.meta.description} schema={schema}>
+	<nav class="wrap crumbs" aria-label={t.crumbLabel}>
+		<a href={ROUTES.home[lang]}>Tokimichi</a>
+		<span aria-hidden="true">·</span>
+		<span aria-current="page">{l.anchor}</span>
+	</nav>
+
+	<section class="wrap hero lhero">
+		<div>
+			<h1>{l.h1Parts[0]}<span class="mark">{l.h1Parts[1]}</span>{l.h1Parts[2]}</h1>
+			<p class="lede">{l.lede}</p>
+			<p class="lstatus">{t.status}</p>
+			<WaitlistForm lang={lang} id="alta" label={t.form.label} />
+		</div>
+		<div class="stage">
+			<div class="cushion" aria-hidden="true"></div>
+			<div class="photo hphoto">
+				<Shot name={l.shot.name} alt={l.shot.alt} eager />
+				<MochiFace class="fhero" />
+			</div>
+		</div>
+	</section>
+
+	<article class="wrap lbody">
+		{
+			l.sections.map((s) => (
+				<section class:list={['lsec', { lsplit: s.shot }]}>
+					<div class="ltext">
+						<h2>{s.h}</h2>
+						{s.p?.map((text) => <p>{text}</p>)}
+						{s.list && <ul class="dots">{s.list.map((item) => <li>{item}</li>)}</ul>}
+					</div>
+					{s.shot && <div class="lshot"><div class="photo"><Shot name={s.shot.name} alt={s.shot.alt} /></div></div>}
+				</section>
+			))
+		}
+	</article>
+
+	{
+		l.limits && (
+			<section class="wrap">
+				<div class="promise limits">
+					<h2>{l.limits.h}</h2>
+					<ul class="dots">{l.limits.list.map((item) => <li>{item}</li>)}</ul>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="wrap faq lfaq">
+		<h2>{t.faqTitle}</h2>
+		<div class="qs">
+			{
+				l.faq.map((f) => (
+					<div class="q">
+						<h3 class="qt">{f.q}</h3>
+						<p class="qa">{f.a}</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<Explore lang={lang} title={t.relatedTitle} keys={l.related} />
+
+	<SiteFoot slot="foot" lang={lang} page={id} />
+</Base>

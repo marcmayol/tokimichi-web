@@ -1,0 +1,25 @@
+---
+import { LANDINGS, type LandingKey } from '../landings';
+import { ROUTES, type Lang } from '../i18n';
+
+interface Props {
+	lang: Lang;
+	title: string;
+	keys: LandingKey[];
+}
+const { lang, title, keys } = Astro.props;
+---
+
+<section class="wrap explore">
+	<h2>{title}</h2>
+	<ul class="xlist">
+		{
+			keys.map((key) => (
+				<li class="xcard">
+					<a class="xlink" href={ROUTES[key][lang]}>{LANDINGS[lang][key].anchor}</a>
+					<p class="xblurb">{LANDINGS[lang][key].blurb}</p>
+				</li>
+			))
+		}
+	</ul>
+</section>

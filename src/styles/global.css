@@ -164,7 +164,37 @@ h3{font-size:var(--text-xl);line-height:1.25;font-weight:700}
 .foot .face{--color-eye:var(--foot-input-ink)}
 .lost .crane{width:72px;height:72px;margin:0 auto var(--space-lg);transform:rotate(-8deg)}
 
+/* Landings */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--space-xs);font-size:var(--text-sm);color:var(--color-muted)}
+.crumbs a{display:inline-flex;align-items:center;min-height:44px}
+.lhero{padding-block-end:var(--space-3xl)}
+.lstatus{margin-top:var(--space-md);font-size:var(--text-sm);font-weight:700;max-width:32em}
+.lbody{display:flex;flex-direction:column;gap:var(--space-3xl)}
+.lsec{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-xl)}
+.ltext{max-width:38em}
+.ltext p{margin-top:var(--space-sm);text-wrap:pretty}
+.dots{margin-top:var(--space-md);display:grid;gap:var(--space-sm)}
+.dots li{position:relative;padding-left:var(--space-lg);text-wrap:pretty}
+.dots li:before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--color-dot)}
+.lshot{width:100%;max-width:220px;margin-inline:auto}
+.limits .dots{margin-top:0}
+.limits .dots li:before{background:currentColor}
+.explore{margin-top:var(--space-3xl)}
+main>.explore:last-child{padding-bottom:var(--space-4xl)}
+.xlist{margin-top:var(--space-lg);display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-md)}
+.xcard{padding:var(--space-lg);border-radius:var(--radius-input);background:var(--color-card);border:2px dotted var(--color-dot)}
+.xlink{font-size:1.1875rem;font-weight:700;line-height:1.3}
+.xblurb{margin-top:var(--space-xs);color:var(--color-muted);text-wrap:pretty}
+.lfaq{padding-bottom:0}
+
+@media (min-width:40rem){
+	.xlist{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media (min-width:60rem){
+	.lsplit{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center;gap:var(--space-3xl)}
+	.lsplit:nth-child(even) .ltext{order:2}
+	.lshot{max-width:260px}
+	.xlist{grid-template-columns:repeat(3,minmax(0,1fr))}
 	.hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:var(--space-3xl);padding-block:var(--space-2xl) var(--space-4xl)}
 	.lede{font-size:var(--text-lg)}
 	.fline{flex-direction:row}

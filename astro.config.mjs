@@ -2,10 +2,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const BUILT = new Date().toISOString();
+import { PAGES } from './src/routes.mjs';
+
+const SITE = 'https://tokimichi.app';
 
 export default defineConfig({
-	site: 'https://tokimichi.app',
+	site: SITE,
 	output: 'static',
 	trailingSlash: 'always',
 	build: { inlineStylesheets: 'always' },
@@ -18,20 +20,16 @@ export default defineConfig({
 		sitemap({
 			i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } },
 			// Astro no empareja rutas con distinto nombre: lo hace serialize con el mismo mapa que el HTML.
+			// Una página sin fila en routes.mjs rompe el build: así el sitemap no puede quedarse atrás.
 			serialize(item) {
-				const pairs = {
-					'https://tokimichi.app/': 'https://tokimichi.app/es/',
-					'https://tokimichi.app/privacy/': 'https://tokimichi.app/es/privacidad/',
-				};
-				const entry = Object.entries(pairs).find(([en, es]) => item.url === en || item.url === es);
-				if (entry) {
-					item.links = [
-						{ lang: 'en', url: entry[0] },
-						{ lang: 'es', url: entry[1] },
-						{ lang: 'x-default', url: entry[0] },
-					];
-				}
-				item.lastmod = BUILT;
+				const page = Object.values(PAGES).find((p) => item.url === SITE + p.en || item.url === SITE + p.es);
+				if (!page) throw new Error(`Falta en src/routes.mjs: ${item.url}`);
+				item.links = [
+					{ lang: 'en', url: SITE + page.en },
+					{ lang: 'es', url: SITE + page.es },
+					{ lang: 'x-default', url: SITE + page.en },
+				];
+				item.lastmod = page.updated;
 				return item;
 			},
 		}),
