@@ -10,14 +10,17 @@ interface Props {
 	description: string;
 	schema?: object[];
 	noindex?: boolean;
+	/** Imagen para redes (ruta en public); por defecto la del idioma. */
+	image?: string;
+	imageAlt?: string;
 }
-const { lang, page, title, description, schema = [], noindex = false } = Astro.props;
+const { lang, page, title, description, schema = [], noindex = false, image, imageAlt } = Astro.props;
 const t = UI[lang];
 const other = altLang(lang);
 const path = page ? ROUTES[page][lang] : '/404.html';
 const canonical = SITE + path;
 const otherHref = page ? ROUTES[page][other] : ROUTES.home[other];
-const og = `${SITE}/og-${lang}.png`;
+const og = SITE + (image ?? `/og-${lang}.png`);
 const mdHref = page ? (path === '/' ? '/index.md' : `${path.replace(/\/$/, '')}.md`) : null;
 
 const org = {
@@ -70,7 +73,7 @@ const labels = { toLuna: t.toLuna, toMochi: t.toMochi };
 				<meta property="og:image" content={og} />
 				<meta property="og:image:width" content="1200" />
 				<meta property="og:image:height" content="630" />
-				<meta property="og:image:alt" content={t.h1} />
+				<meta property="og:image:alt" content={imageAlt ?? t.h1} />
 				<meta name="twitter:card" content="summary_large_image" />
 			</Fragment>
 		)}

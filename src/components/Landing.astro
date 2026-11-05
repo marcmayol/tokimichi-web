@@ -17,6 +17,7 @@ const t = UI[lang];
 const l = LANDINGS[lang][id];
 const url = SITE + ROUTES[id][lang];
 const homeUrl = SITE + ROUTES.home[lang];
+const image = `/og/${lang}-${id}.png`; // la genera scripts/imagenes.py
 
 const schema: object[] = [
 	{
@@ -58,13 +59,13 @@ if (l.kind === 'guide') {
 		publisher: { '@id': `${SITE}/#author` },
 		datePublished: PAGE_UPDATED[id],
 		dateModified: PAGE_UPDATED[id],
-		image: `${SITE}/og-${lang}.png`,
+		image: SITE + image,
 		mainEntityOfPage: { '@id': `${url}#webpage` },
 	});
 }
 ---
 
-<Base lang={lang} page={id} title={l.meta.title} description={l.meta.description} schema={schema}>
+<Base lang={lang} page={id} title={l.meta.title} description={l.meta.description} schema={schema} image={image} imageAlt={l.h1Parts.join('')}>
 	<nav class="wrap crumbs" aria-label={t.crumbLabel}>
 		<a href={ROUTES.home[lang]}>Tokimichi</a>
 		<span aria-hidden="true">·</span>

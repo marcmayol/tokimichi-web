@@ -208,7 +208,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: '¿Puedo mezclar voz, fotos y texto?', a: 'Sí. En una misma experiencia cabe todo, y aparece en el orden en que pasó.' },
 				{ q: '¿Puedo borrar una grabación?', a: 'Sí. Borras el momento y se elimina con sus archivos. No se puede deshacer, y la app te lo avisa antes.' },
 			],
-			related: ['travel', 'noStreaks', 'celebrations'],
+			related: ['travel', 'travelGuide', 'celebrations'],
 		},
 		noStreaks: {
 			kind: 'app',
@@ -259,7 +259,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: '¿Puedo quitar todos los avisos?', a: 'Sí. Puedes dejar una experiencia sin avisos y añadir momentos solo cuando quieras.' },
 				{ q: '¿Sirve como diario personal de todos los días?', a: 'Puedes usarla así con el tipo «otra cosa», pero está pensada para guardar experiencias concretas.' },
 			],
-			related: ['voice', 'celebrations', 'travel'],
+			related: ['travel', 'travelGuide', 'voice'],
 		},
 		celebrations: {
 			kind: 'app',
@@ -267,7 +267,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			blurb: 'Lo que pasó aquella noche, en el orden en que pasó.',
 			meta: {
 				title: 'Guarda los recuerdos de tus cumpleaños y fiestas | Tokimichi',
-				description: 'Guarda cumpleaños, bodas, Nochevieja o quedadas con fotos, vídeo, voz y texto, en el orden en que pasaron, y vuelve a ellos cuando quieras. Saldrá primero en Android.',
+				description: 'Guarda cumpleaños, bodas o Nochevieja con fotos, vídeo, voz y texto, en el orden en que pasaron, y vuelve a ellos cuando quieras. Saldrá primero en Android.',
 			},
 			h1Parts: ['Tus cumpleaños y fiestas, ', 'tal como fueron', '.'],
 			lede: 'Al día siguiente quedan cuarenta fotos en el carrete, mezcladas con capturas y tickets. Tokimichi reúne cada celebración en un solo sitio, con lo que dijiste y sentiste aquella noche.',
@@ -316,7 +316,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: '¿Sirve para una boda de varios días?', a: 'Sí. Las fiestas y celebraciones son un bloque continuo, y si dura más de un día cada momento muestra su fecha y su hora.' },
 				{ q: '¿Quién puede ver lo que guardo?', a: 'Solo tú. No hay perfiles, ni seguidores, ni nada público.' },
 			],
-			related: ['travel', 'noStreaks', 'voice'],
+			related: ['travelGuide', 'noStreaks', 'voice'],
 		},
 	},
 	en: {
@@ -500,7 +500,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: 'Can I mix voice, photos and text?', a: 'Yes. It all fits in one experience and appears in the order it happened.' },
 				{ q: 'Can I delete a recording?', a: 'Yes. Delete the moment and its files go with it. It can’t be undone, and the app warns you first.' },
 			],
-			related: ['travel', 'noStreaks', 'celebrations'],
+			related: ['travel', 'travelGuide', 'celebrations'],
 		},
 		noStreaks: {
 			kind: 'app',
@@ -508,7 +508,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			blurb: 'No counters, no guilt, and only the reminders you choose.',
 			meta: {
 				title: 'Journal app with no streaks or guilt | Tokimichi',
-				description: 'A journal app with no streaks: nothing scolds you for skipping a day, you choose how many reminders you get, and you open it when you’re living something worth keeping.',
+				description: 'A journal app with no streaks: nothing scolds you for skipping a day, you pick how many reminders you get, and you open it when something is worth keeping.',
 			},
 			h1Parts: ['A journal app with ', 'no streaks', ' and no guilt.'],
 			lede: 'Tokimichi doesn’t count how many days you’ve been writing. It doesn’t ask you to write every day either: you open it when you’re living something you want to remember, like a trip to Lisbon or New Year’s Eve with friends, and the rest of the time it leaves you alone.',
@@ -551,7 +551,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: 'Can I turn off all reminders?', a: 'Yes. You can leave an experience with no reminders and add moments only when you want to.' },
 				{ q: 'Does it work as an everyday journal?', a: 'You can use it that way with the “something else” type, but it’s designed for keeping specific experiences.' },
 			],
-			related: ['voice', 'celebrations', 'travel'],
+			related: ['travel', 'travelGuide', 'voice'],
 		},
 		celebrations: {
 			kind: 'app',
@@ -559,7 +559,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 			blurb: 'What happened that night, in the order it happened.',
 			meta: {
 				title: 'Keep your birthday and party memories | Tokimichi',
-				description: 'Keep birthdays, weddings, New Year’s Eve and meetups with photos, video, voice and text, in the order they happened, and go back whenever you like. Android first.',
+				description: 'Keep birthdays, weddings and New Year’s Eve with photos, video, voice and text, in the order they happened, and go back whenever you like. Android first.',
 			},
 			h1Parts: ['Your birthdays and parties, ', 'just as they were', '.'],
 			lede: 'The next day there are forty photos on your camera roll, mixed in with screenshots and receipts. Tokimichi gathers each celebration in one place, with what you said and felt that night.',
@@ -608,7 +608,7 @@ export const LANDINGS: Record<Lang, Record<LandingKey, Landing>> = {
 				{ q: 'Does it work for a wedding over several days?', a: 'Yes. Parties and celebrations are one continuous block, and if it runs over a day, each moment shows its date and time.' },
 				{ q: 'Who can see what I save?', a: 'Only you. There are no profiles, followers or anything public.' },
 			],
-			related: ['travel', 'noStreaks', 'voice'],
+			related: ['travelGuide', 'noStreaks', 'voice'],
 		},
 	},
 };
