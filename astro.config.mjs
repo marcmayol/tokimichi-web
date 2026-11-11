@@ -19,6 +19,8 @@ export default defineConfig({
 	integrations: [
 		sitemap({
 			i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } },
+			// Páginas personales que no se indexan (noindex, nofollow): fuera del sitemap.
+			filter: (page) => !page.startsWith(SITE + '/japon-2026/'),
 			// Astro no empareja rutas con distinto nombre: lo hace serialize con el mismo mapa que el HTML.
 			// Una página sin fila en routes.mjs rompe el build: así el sitemap no puede quedarse atrás.
 			serialize(item) {

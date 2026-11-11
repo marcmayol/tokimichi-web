@@ -1,0 +1,152 @@
+---
+// Página personal del viaje a Japón (nov-2026): para los amigos del viaje y para Marc.
+// No se indexa ni se enlaza desde el resto de la web, y astro.config.mjs la saca del sitemap.
+// La URL va grabada en una etiqueta NFC: no cambiarla de sitio.
+const fotos = [
+	{ src: 'osaka', w: 1400, h: 933, jp: '大阪城', es: 'Castillo de Osaka', alt: 'El castillo de Osaka entre cerezos en flor', autor: 'Luka Peternel', lic: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Osaka-Castle-cherry-blossom-2018-Luka-Peternel.jpg' },
+	{ src: 'chidorigafuchi', w: 1400, h: 904, jp: '千鳥ヶ淵', es: 'Chidorigafuchi, Tokio', alt: 'Barcas en el foso del Palacio Imperial de Tokio bajo los cerezos', autor: 'Daderot', lic: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Sakura_and_boats_in_the_Chidorigafuchi_Moat_-_Tokyo,_Japan_DSC06051.jpg' },
+	{ src: 'tokyo-tower', w: 1400, h: 1054, jp: '東京タワー', es: 'Torre de Tokio', alt: 'Tokio de noche con la Torre de Tokio iluminada', autor: 'Syced', lic: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Tokyo_Tower_at_night_from_Shibuya_Stream.jpg' },
+	{ src: 'fushimi-inari', w: 1400, h: 908, jp: '伏見稲荷', es: 'Fushimi Inari, Kioto', alt: 'Un camino de toriis rojos en Fushimi Inari', autor: 'Balon Greyjoy', lic: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:20181110_Fushimi_Inari_Torii_12.jpg' },
+	{ src: 'fuji', w: 1400, h: 788, jp: '富士山', es: 'El Fuji desde Chūreitō', alt: 'El monte Fuji detrás de la pagoda Chūreitō y arces rojos', autor: 'Dang Son', lic: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:12-Chureito-pagoda-and-Mount-Fuji-Japan_(29677439878).jpg' },
+	{ src: 'shibuya', w: 1400, h: 1054, jp: '渋谷', es: 'El cruce de Shibuya', alt: 'El cruce de Shibuya lleno de gente, visto desde arriba', autor: 'Syced', lic: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Shibuya_crossing_seen_from_Shibuya_Stream,_2024.jpg' },
+];
+const cinta = Array(8).fill('工事中 · En construcción').join(' · ');
+const petalos = Array.from({ length: 14 }, (_, i) => i);
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Viaje a Japón · Noviembre 2026</title>
+		<meta name="description" content="Nuestro viaje a Japón de noviembre de 2026. En construcción." />
+		<meta name="robots" content="noindex, nofollow" />
+		<meta name="theme-color" content="#F6EFE4" />
+		<meta property="og:title" content="Viaje a Japón · Noviembre 2026" />
+		<meta property="og:description" content="En construcción. Aquí irán el vídeo y el álbum del viaje." />
+		<meta property="og:image" content="https://tokimichi.app/japon-2026/osaka.webp" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="preload" href="/fonts/zen-maru-gothic-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+		<style>
+			@font-face{font-family:'Zen Maru Gothic';src:url('/fonts/zen-maru-gothic-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
+			@font-face{font-family:'Zen Maru Gothic';src:url('/fonts/zen-maru-gothic-latin-700-normal.woff2') format('woff2');font-weight:700;font-display:swap}
+			:root{
+				color-scheme:light;
+				--paper:#F6EFE4;--ink:#2B2522;--muted:#6B5F57;--card:#FFFDF8;
+				--shu:#C8312B;--shu-deep:#9E2420;--sakura:#F4B8C4;--gold:#C9A24A;--line:#E4D8C6;
+				--jp:'Yu Mincho','Hiragino Mincho ProN','Noto Serif JP','MS Mincho',serif;
+				--body:'Zen Maru Gothic',ui-rounded,system-ui,sans-serif;
+				--gutter:clamp(1rem,4vw,2rem);
+			}
+			*,*:before,*:after{box-sizing:border-box}
+			html,body{overflow-x:clip}
+			body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.6;
+				background-image:radial-gradient(circle at 20% 10%,rgba(201,162,74,.08),transparent 40%),radial-gradient(circle at 85% 30%,rgba(244,184,196,.18),transparent 45%);
+				min-height:100vh}
+			h1,h2,p,figure,ul{margin:0;padding:0}
+			img{display:block;max-width:100%;height:auto}
+			a{color:inherit;text-underline-offset:.18em}
+			:focus-visible{outline:3px solid var(--shu);outline-offset:3px}
+			.wrap{max-width:1120px;margin-inline:auto;padding-inline:var(--gutter)}
+
+			/* Portada */
+			.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem;align-items:center;padding-block:clamp(2.5rem,7vw,5.5rem) 3rem}
+			@media (min-width:860px){.hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+			.sun{position:absolute;right:-6vw;top:-8vw;width:min(46vw,460px);aspect-ratio:1;border-radius:50%;background:var(--shu);opacity:.1;z-index:-1}
+			.kicker{font-family:var(--jp);font-size:1.25rem;letter-spacing:.35em;color:var(--shu)}
+			h1{margin-top:.75rem;font-size:clamp(2.75rem,1.8rem + 5vw,5.25rem);line-height:1.02;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+			.fecha{margin-top:.5rem;font-size:clamp(1.25rem,1rem + 1vw,1.75rem);color:var(--muted)}
+			.lede{margin-top:1.5rem;max-width:30em;color:var(--muted);text-wrap:pretty}
+			.sello{display:inline-grid;place-items:center;margin-top:2rem;width:7.5rem;height:7.5rem;border:4px solid var(--shu);border-radius:14px;color:var(--shu);
+				font-family:var(--jp);font-size:1.9rem;font-weight:700;line-height:1.05;writing-mode:vertical-rl;letter-spacing:.12em;transform:rotate(-6deg);
+				box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 5px var(--shu)}
+			.sello-txt{display:block;margin-top:.75rem;font-size:.9375rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--shu-deep)}
+			.portada{position:relative;justify-self:center;width:min(100%,460px)}
+			.vertical{position:absolute;left:-2.25rem;top:.5rem;font-family:var(--jp);font-size:1.5rem;letter-spacing:.4em;writing-mode:vertical-rl;color:var(--ink);opacity:.75}
+			@media (max-width:520px){.vertical{display:none}}
+
+			/* Polaroids */
+			.foto{background:var(--card);padding:.6rem .6rem 0;border-radius:6px;box-shadow:0 18px 30px -18px rgba(60,30,20,.55);transform:rotate(var(--r,2deg));transition:transform .25s cubic-bezier(.22,1,.36,1)}
+			.foto:hover{transform:rotate(0) scale(1.02)}
+			.foto img{border-radius:3px;aspect-ratio:4/3;object-fit:cover;width:100%}
+			.foto figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:.75rem;padding:.6rem .25rem .75rem;font-size:.9375rem;color:var(--muted)}
+			.foto figcaption b{font-family:var(--jp);font-size:1.125rem;font-weight:700;color:var(--ink)}
+			.cinta-foto{position:absolute;top:-14px;left:50%;width:110px;height:28px;transform:translateX(-50%) rotate(-3deg);background:rgba(244,184,196,.75);border-radius:2px}
+			.portada .foto{--r:3deg}
+
+			/* Cinta de obra */
+			.obra{overflow:hidden;margin-block:1rem 3.5rem;background:repeating-linear-gradient(-45deg,var(--ink) 0 22px,var(--gold) 22px 44px);padding-block:10px;transform:rotate(-1.5deg)}
+			.obra p{display:inline-block;white-space:nowrap;background:var(--paper);padding:.35rem 0;font-weight:700;letter-spacing:.08em;animation:pasa 40s linear infinite}
+			.obra span{padding-inline:.5rem}
+			@keyframes pasa{to{transform:translateX(-50%)}}
+
+			/* Galería */
+			.galeria h2{font-size:clamp(1.5rem,1.2rem + 1.4vw,2.25rem);font-weight:700}
+			.galeria h2 small{display:block;font-family:var(--jp);font-size:1rem;font-weight:400;letter-spacing:.3em;color:var(--shu)}
+			.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:2.5rem 2rem;margin-top:2rem}
+			.grid .foto:nth-child(3n+1){--r:-2deg}.grid .foto:nth-child(3n+2){--r:1.5deg}.grid .foto:nth-child(3n){--r:-1deg}
+
+			/* Pie */
+			.pie{margin-top:5rem;padding-block:2.5rem;border-top:1px dashed var(--line);font-size:.875rem;color:var(--muted)}
+			.pie p+p{margin-top:.5rem}
+			.pie .hanko{font-family:var(--jp);color:var(--shu);font-size:1.25rem}
+
+			/* Pétalos */
+			.petalos{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+			.petalos i{position:absolute;top:-5vh;width:12px;height:10px;background:var(--sakura);border-radius:12px 0 12px 0;opacity:.85;animation:cae linear infinite}
+			@keyframes cae{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(18vw,110vh) rotate(540deg)}}
+			@media (prefers-reduced-motion:reduce){.petalos{display:none}.obra p{animation:none}.foto,.foto:hover{transition:none}}
+		</style>
+	</head>
+	<body>
+		<div class="petalos" aria-hidden="true">
+			{petalos.map((i) => (
+				<i style={`left:${(i * 73) % 100}vw;animation-duration:${9 + (i * 7) % 9}s;animation-delay:-${(i * 3.7) % 12}s;scale:${0.7 + ((i * 5) % 6) / 10}`}></i>
+			))}
+		</div>
+
+		<main>
+			<section class="wrap hero">
+				<div class="sun" aria-hidden="true"></div>
+				<div>
+					<p class="kicker" lang="ja">日本 · 二〇二六年十一月</p>
+					<h1>Viaje a Japón</h1>
+					<p class="fecha">Noviembre de 2026</p>
+					<p class="lede">Esto es para nosotros: los amigos que nos vamos a Japón. Aquí acabarán el vídeo y el álbum del viaje. De momento está en obras.</p>
+					<div class="sello" role="img" aria-label="Sello: en construcción"><span lang="ja">工事中</span></div>
+					<span class="sello-txt">En construcción</span>
+				</div>
+				<div class="portada">
+					<span class="vertical" lang="ja" aria-hidden="true">旅の思い出</span>
+					<figure class="foto">
+						<span class="cinta-foto" aria-hidden="true"></span>
+						<img src="/japon-2026/osaka.webp" width="1400" height="933" alt="El castillo de Osaka entre cerezos en flor" fetchpriority="high" />
+						<figcaption><b lang="ja">大阪城</b> Castillo de Osaka</figcaption>
+					</figure>
+				</div>
+			</section>
+
+			<div class="obra" aria-hidden="true"><p><span>{cinta}</span><span>{cinta}</span></p></div>
+
+			<section class="wrap galeria">
+				<h2><small lang="ja">写真</small>Lo que nos espera</h2>
+				<div class="grid">
+					{fotos.slice(1).map((f) => (
+						<figure class="foto">
+							<img src={`/japon-2026/${f.src}.webp`} width={f.w} height={f.h} alt={f.alt} loading="lazy" decoding="async" />
+							<figcaption><b lang="ja">{f.jp}</b> {f.es}</figcaption>
+						</figure>
+					))}
+				</div>
+			</section>
+		</main>
+
+		<footer class="wrap pie">
+			<p><span class="hanko" lang="ja">いってきます</span> · Nos vamos.</p>
+			<p>Fotos de Wikimedia Commons: {fotos.map((f, i) => (
+				<Fragment>{i > 0 && ', '}<a href={f.url} rel="nofollow noopener" target="_blank">{f.es}</a> ({f.autor}, {f.lic})</Fragment>
+			))}.</p>
+		</footer>
+	</body>
+</html>
