@@ -157,12 +157,13 @@ export const PRIVACY = {
 	es: {
 		meta: {
 			title: 'Privacidad de Tokimichi: qué datos se guardan y por qué',
-			description: 'Por ahora, la app guarda todo en tu móvil. La web solo te pide el correo, para la lista de espera; aquí explicamos para qué se usa y cómo borrarlo.',
+			description: 'La app guarda todo en tu móvil y, si quieres, una copia en tu propio Google Drive. La web solo te pide el correo, para la lista de espera; aquí explicamos para qué se usa y cómo borrarlo.',
 		},
 		title: 'Privacidad',
-		updated: 'Actualizada el 2 de noviembre de 2026',
+		updated: 'Actualizada el 13 de noviembre de 2026',
 		sections: [
-			{ h: 'La app', p: ['Hoy, lo que guardas en Tokimichi se queda en tu móvil, y no sale de ahí salvo que hagas tú una copia donde elijas. Si esto cambia, actualizaremos esta página antes de que te afecte.'] },
+			{ h: 'La app', p: ['Lo que guardas en Tokimichi se queda en tu móvil. Solo sale de ahí si haces tú una copia donde elijas o si activas la copia en Google Drive. Si esto cambia, actualizaremos esta página antes de que te afecte.'] },
+			{ h: 'La copia en Google Drive', p: ['Si en Ajustes inicias sesión con Google, Tokimichi guarda cada día una copia de tus experiencias, con sus fotos, vídeos y audios, en una carpeta «Tokimichi» de tu propio Google Drive. Va directamente de tu móvil a tu Drive: no pasa por ningún servidor nuestro y nosotros no podemos verla.', 'Para eso pide dos permisos: drive.file, que solo deja ver y cambiar los archivos que crea la propia app, nunca el resto de tu Drive, y tu dirección de correo, para enseñarte en qué cuenta se copia. El uso que Tokimichi hace de la información recibida de las API de Google cumple la Política de Datos de Usuario de los Servicios de API de Google, incluidos los requisitos de uso limitado.', 'Puedes cerrar la sesión en Ajustes cuando quieras: la app deja de copiar y retira el permiso. Lo ya copiado sigue en tu Drive hasta que lo borres tú.'] },
 			{ h: 'La lista de espera', p: ['Si te apuntas, guardamos tu correo, el idioma de la página, la página desde la que te apuntaste y la fecha.', 'Lo usamos solo para avisarte de que la app ha salido. La base legal es tu consentimiento, que retiras cuando quieras.', 'Se guarda en un servidor privado que contratamos, y no se vende ni se cede a nadie. Lo borramos después de enviar el aviso, o antes si nos lo pides. Ese servidor puede registrar datos técnicos de la conexión, como la dirección IP, por seguridad.'] },
 			{ h: 'La web', p: ['No hay cookies, analítica ni publicidad. Las fuentes están alojadas aquí mismo.', 'La web se aloja en GitHub Pages, y GitHub registra datos técnicos de las visitas, como la dirección IP, para operar y proteger su servicio.', 'Si eliges Modo Luna o Modo Mochi, esa preferencia se guarda solo en tu navegador.'] },
 			{ h: 'Tus derechos', p: [`Puedes pedir acceso, rectificación, borrado, limitación u oposición, y retirar tu consentimiento, escribiendo a ${CONTACT_EMAIL}. Si crees que no se ha respetado tu privacidad, puedes reclamar ante la Agencia Española de Protección de Datos.`] },
@@ -172,12 +173,13 @@ export const PRIVACY = {
 	en: {
 		meta: {
 			title: 'Tokimichi privacy: what is stored and why',
-			description: 'For now, the app keeps everything on your phone. The website only asks for your email, for the waiting list. Here’s what happens to it and how to delete it.',
+			description: 'The app keeps everything on your phone and, if you want, a copy in your own Google Drive. The website only asks for your email, for the waiting list. Here’s what happens to it and how to delete it.',
 		},
 		title: 'Privacy',
-		updated: 'Updated on 2 November 2026',
+		updated: 'Updated on 13 November 2026',
 		sections: [
-			{ h: 'The app', p: ['Today, what you save in Tokimichi stays on your phone, and it doesn’t leave unless you make a copy yourself, wherever you choose. If that changes, we’ll update this page before it affects you.'] },
+			{ h: 'The app', p: ['What you save in Tokimichi stays on your phone. It only leaves if you make a copy yourself, wherever you choose, or turn on the Google Drive backup. If that changes, we’ll update this page before it affects you.'] },
+			{ h: 'The Google Drive backup', p: ['If you sign in with Google in Settings, Tokimichi saves a copy of your experiences each day, with their photos, videos and audio, to a “Tokimichi” folder in your own Google Drive. It goes straight from your phone to your Drive: it never passes through a server of ours and we can’t see it.', 'To do that it asks for two permissions: drive.file, which only lets it see and change the files the app itself creates, never the rest of your Drive, and your email address, to show you which account it backs up to. Tokimichi’s use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.', 'You can sign out in Settings at any time: the app stops backing up and gives up the permission. What’s already copied stays in your Drive until you delete it.'] },
 			{ h: 'The waiting list', p: ['If you sign up, we store your email, the page language, the page you signed up from and the date.', 'We use it only to tell you the app is out. The legal basis is your consent, which you can withdraw at any time.', 'It’s kept on a private server we rent, and it isn’t sold or passed on to anyone. We delete it after sending the notice, or sooner if you ask. That server may log technical connection data, such as the IP address, for security.'] },
 			{ h: 'The website', p: ['There are no cookies, analytics or ads. The fonts are hosted here too.', 'The site is hosted on GitHub Pages, and GitHub logs technical data about visits, such as the IP address, to run and protect its service.', 'If you choose Luna or Mochi mode, that preference is stored only in your browser.'] },
 			{ h: 'Your rights', p: [`You can ask for access, correction, deletion, restriction or objection, and withdraw your consent, by writing to ${CONTACT_EMAIL}. If you think your privacy hasn’t been respected, you can complain to the Spanish Data Protection Agency (AEPD).`] },
