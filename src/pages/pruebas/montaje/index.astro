@@ -1,0 +1,100 @@
+---
+// Pruebas del fabricante de películas y álbumes (fase 2), para que Marc las vea desde el móvil.
+// No se indexa ni se enlaza desde el resto de la web, y astro.config.mjs la saca del sitemap.
+// Los archivos están en public/pruebas/montaje/. Se puede borrar cuando ya no haga falta.
+const base = '/pruebas/montaje/';
+const peliculas = [
+	{ id: 'alegre', nombre: 'Alegre', seg: 70, s: 16.6, nota: 'Cortes de unos 2,5 s y transición deslizando.' },
+	{ id: 'neutro', nombre: 'Neutro', seg: 70, s: 16.1, nota: 'Planos de unos 3,5 s y fundido suave.' },
+	{ id: 'muy-animado', nombre: 'Muy animado', seg: 47, s: 12.9, nota: 'Cortes rápidos con zoom. Con solo 11 momentos no da para más de 47 s.' },
+	{ id: 'rock', nombre: 'Rock', seg: 57, s: 14.1, nota: 'Cortes secos con destello blanco. Mismo límite de material.' },
+	{ id: 'triste', nombre: 'Triste', seg: 70, s: 18.1, nota: 'Planos largos y fundido a negro.' },
+	{ id: 'siete-dias', nombre: 'Muy animado, 7 días', seg: 89, s: 25.2, nota: 'Un viaje de 7 días con 105 momentos: elige y reparte entre todos los días.' },
+];
+const albumes = [
+	{ id: 'neutro', nombre: 'Neutro', paginas: 8 },
+	{ id: 'rock', nombre: 'Rock', paginas: 8 },
+];
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Pruebas de montaje · Tokimichi</title>
+		<meta name="robots" content="noindex, nofollow, noarchive" />
+		<meta name="theme-color" content="#FFF6E9" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<style>
+			@font-face{font-family:'Zen Maru Gothic';src:url('/fonts/zen-maru-gothic-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
+			@font-face{font-family:'Zen Maru Gothic';src:url('/fonts/zen-maru-gothic-latin-700-normal.woff2') format('woff2');font-weight:700;font-display:swap}
+			:root{color-scheme:light;--paper:#FFF6E9;--card:#FFFDF8;--ink:#3B2F2F;--muted:#6E605A;--accent:#E0703F;--line:#EADCC8;--gutter:clamp(1rem,4vw,2rem)}
+			*,*:before,*:after{box-sizing:border-box}
+			body{margin:0;background:var(--paper);color:var(--ink);font-family:'Zen Maru Gothic',ui-rounded,system-ui,sans-serif;font-size:1.0625rem;line-height:1.6}
+			h1,h2,h3,p,ul{margin:0}
+			.wrap{max-width:1100px;margin-inline:auto;padding-inline:max(var(--gutter),env(safe-area-inset-left,0px));padding-block:2.5rem 4rem;display:grid;gap:3rem}
+			header{display:grid;gap:.75rem;max-width:42em}
+			h1{font-size:clamp(2rem,1.4rem + 3vw,3rem);line-height:1.1;text-wrap:balance}
+			h2{font-size:1.5rem}
+			.muted{color:var(--muted)}
+			.aviso{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.25rem;display:grid;gap:.4rem}
+			.aviso ul{padding-left:1.2rem}
+			section{display:grid;gap:1.25rem}
+			.pelis{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr))}
+			.peli{display:grid;gap:.5rem;align-content:start}
+			.peli video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#2a2421;display:block}
+			.peli h3{font-size:1.125rem}
+			.peli p{font-size:.9375rem;color:var(--muted)}
+			.dato{font-variant-numeric:tabular-nums;font-size:.875rem;color:var(--accent);font-weight:700}
+			.album{display:grid;gap:.75rem}
+			.paginas{display:flex;gap:.75rem;overflow-x:auto;padding-bottom:.5rem;scroll-snap-type:x mandatory}
+			.paginas img{width:min(70vw,300px);aspect-ratio:1;flex:none;border-radius:8px;scroll-snap-align:start;box-shadow:0 2px 10px rgba(59,47,47,.12)}
+			a{color:var(--accent);font-weight:700;text-underline-offset:.18em}
+			:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+		</style>
+	</head>
+	<body>
+		<main class="wrap">
+			<header>
+				<p class="dato">Tokimichi · pruebas · fase 2</p>
+				<h1>Películas y álbumes del fabricante</h1>
+				<p class="muted">Salen del programa que monta en el PC de casa, a partir de una copia de Tokimichi. La película es vertical, 1080×1920. Aquí van en 720×1280 para que carguen rápido.</p>
+				<div class="aviso">
+					<strong>Material de prueba, no tu viaje</strong>
+					<ul>
+						<li>Las fotos son las de la web de Tokimichi, con textos inventados de Kioto.</li>
+						<li>Los dos vídeos son cartas de ajuste y la nota de voz es un pitido.</li>
+						<li>Sin IA y sin música: aún no hay claves. El guion es el montaje de reserva, el que se usa si la IA falla 3 veces.</li>
+					</ul>
+				</div>
+			</header>
+
+			<section aria-labelledby="t-pelis">
+				<h2 id="t-pelis">Películas: los cinco estilos</h2>
+				<div class="pelis">
+					{peliculas.map((p) => (
+						<article class="peli">
+							<video controls preload="none" playsinline poster={`${base}${p.id}.webp`} src={`${base}${p.id}.mp4`}></video>
+							<h3>{p.nombre}</h3>
+							<p class="dato">{p.seg} s de película · montada en {p.s.toLocaleString('es-ES')} s</p>
+							<p>{p.nota}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			{albumes.map((a) => (
+				<section class="album" aria-labelledby={`t-album-${a.id}`}>
+					<h2 id={`t-album-${a.id}`}>Álbum, estilo {a.nombre}</h2>
+					<div class="paginas">
+						{Array.from({ length: a.paginas }, (_, i) => (
+							<img src={`${base}album-${a.id}-${i + 1}.png`} width="300" height="300" loading="lazy" alt={`Página ${i + 1} del álbum ${a.nombre}`} />
+						))}
+					</div>
+					<p><a href={`${base}album-${a.id}.pdf`}>Abrir el PDF</a> <span class="muted">(21×21 cm, 2 MB)</span></p>
+				</section>
+			))}
+		</main>
+	</body>
+</html>
