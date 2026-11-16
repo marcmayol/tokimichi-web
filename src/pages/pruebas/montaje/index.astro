@@ -55,6 +55,7 @@ const albumes = [
 			.peli h3{font-size:1.125rem}
 			.peli p{font-size:.9375rem;color:var(--muted)}
 			.dato{font-variant-numeric:tabular-nums;font-size:.875rem;color:var(--accent);font-weight:700}
+			.viva video{width:min(100%,380px);aspect-ratio:9/16;border-radius:14px;background:#2a2421;display:block}
 			.vivos{display:grid;gap:2rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
 			.vivo{display:grid;gap:.5rem;align-content:start}
 			.vivo h3{font-size:1.125rem}
@@ -86,8 +87,16 @@ const albumes = [
 				</div>
 			</header>
 
+			<section aria-labelledby="t-viva">
+				<h2 id="t-viva">La película viva</h2>
+				<p class="muted">Un viaje de prueba de 2 días con 6 momentos, hecho con las fotos de la página de Japón. Hasta 5 momentos por día; cada foto animada con IA, su texto encima y la nota de voz sonando en Fushimi Inari (voz de Windows, de prueba). Sin música todavía. 47 s de película: 78 min animando las fotos en la gráfica de casa y 12 s uniéndolo todo.</p>
+				<div class="viva">
+					<video controls playsinline preload="metadata" poster={`${base}viva-japon.webp`} src={`${base}viva-japon.mp4`}></video>
+				</div>
+			</section>
+
 			<section aria-labelledby="t-vivos">
-				<h2 id="t-vivos">Nuevo: fotos que cobran vida</h2>
+				<h2 id="t-vivos">Fotos que cobran vida, plano a plano</h2>
 				<p class="muted">Cada plano sale de una sola foto de la web de Tokimichi y de una frase que dice qué pasa. Lo genera Wan 2.2, un modelo abierto, en la tarjeta gráfica de casa y sin pagar nada: unos 12 minutos por plano de 5 segundos. Todavía sin sonido.</p>
 				<div class="vivos">
 					{vivos.map((v) => (
